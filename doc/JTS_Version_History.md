@@ -17,9 +17,26 @@ Distributions for older JTS versions can be obtained at the
 
 <!-- ================================================================ -->
 
-# Version 1.18.0
+# Version 1.18.1
 
 *Release Date:  TBD*
+
+### Functionality Improvements
+
+* Check for invalid polygonal geometry before fixing in `DouglasPeuckerSimplifier`, `VWSimplifier`, `Densifier` (#656)
+
+<!-- ================================================================ -->
+
+# Version 1.18.0
+
+*Release Date:  12/23/2020*
+
+### API Changes
+
+* `GeometryPrecisionReducer` is less tolerant of invalid input (but also avoids failing on some valid ones) (#648)
+* Moved `Position` and `Quadrant` to `org.locationtech.jts.geom` package
+* Removed `SimpleSnapRounder` - use `SnapRoundingNoder` instead
+* Deprecated `MCIndexSnapRounder` - use `SnapRoundingNoder` instead
 
 ### Functionality Improvements
 
@@ -27,6 +44,7 @@ Distributions for older JTS versions can be obtained at the
 * Add `KMLReader` (#593)
 * Add `Densifier.setValidated` method to allow disabling expensive polygon validation (#595)
 * Add `OverlayNG` codebase (#599)
+* Add Z support in OverlayNG (#645)
 * Add system property `jts.overlay=ng` to enable use of OverlayNG in `Geometry` methods (#615)
 * Add `SnapRoundingNoder` (#599)
 * Add `SnappingNoder` (#599)
@@ -34,6 +52,13 @@ Distributions for older JTS versions can be obtained at the
 * Change `GeometryNoder` to use `SnapRoundingNoder`
 * Add `KdTree` `size` and `depth` methods (#603)
 * Improve `WKBWriter` to write empty Polygons using a more compact representation (#623)
+* Support read and initialize internal structure of `STRtree` and `Quadtree` (#634)
+* Improve `GeometryPrecisionReducer` to handle GeometryCollections (#648)
+* Add `Orientation.isCCWArea` (#655)
+
+### Performance Improvements
+
+* Improve performance of `UnaryUnionOp` by removing OverlayUnion optimization (#644)
 
 ### Bug Fixes
 
@@ -44,6 +69,10 @@ Distributions for older JTS versions can be obtained at the
 * Fix `WKTFileReader` handling of files with large amount of whitespace (#616)
 * Fix `WKBWriter` to output 3D empty Points with 3 ordinates (#622)
 * Fix `Geometry.reverse` to handle all geometry structures (#628)
+* Fix `GeometryPrecisionReducer` to avoid silently mangling input (#648)
+* Fix `Geometry.buffer` to avoid dropping large polygon areas in some situations (#655)
+  * also fixes `DouglasPeuckerSimplifier` (#498)
+
 
 ## JTS TestBuilder
 
